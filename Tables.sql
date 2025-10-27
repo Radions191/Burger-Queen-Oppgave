@@ -34,43 +34,35 @@ CREATE TABLE orders (
 CREATE TABLE burger_ingredients (
     burgerID INTEGER NOT NULL,
     ingredientID INTEGER NOT NULL,
-    burger_amount INTEGER DEFAULT 1,
+    quantity_per_burger INTEGER DEFAULT 1,
     FOREIGN KEY(burgerID) REFERENCES burgers(burgerID),
     FOREIGN KEY(ingredientID) REFERENCES ingredients(ingredientID)
-);  
+);
 
 INSERT INTO users (name, password, is_employee) VALUES
-('Geralt', 'hesterbest', 0),
-('Yennefer', 'qwerty', 0),
-('Roach', 'pizza', 0),
-('Jaskier', 'nyttpassord', 1);
+('Lukas', 'solsikke123', 0),
+('Bent', 'fjellrose', 0),
+('Ilja', 'sjokolade', 0),
+('Kateryna', 'himmelbla', 1);
 
 INSERT INTO burgers (name) VALUES
 ('Whopper Queen'),
 ('Triple Cheesy Princess');
 
 INSERT INTO ingredients (name, quantity) VALUES
-('Burgerbrød', 230),
-('Burgerkjøtt', 30),
+('Burgerbrød', 9001),
+('Burgerkjøtt', 10),
 ('Salat', 8008),
 ('Tomat', 1337),
-('Ost', 52),
+('Ost', 42),
 ('Agurk', 666),
 ('Potet', 420);
 
-INSERT INTO burger_ingredients (burgerID, ingredientID) VALUES
-(1, 1),
-(1, 2),
-(1, 3),
-(1, 4);
+INSERT INTO burger_ingredients (burgerID, ingredientID)
+SELECT 1, ingredientID FROM ingredients WHERE name IN ('Burgerbrød','Burgerkjøtt','Salat','Tomat');
 
-INSERT INTO burger_ingredients (burgerID, ingredientID) VALUES
-(2, 1),
-(2, 2),
-(2, 3),
-(2, 4),
-(2, 5),
-(2, 7);
+INSERT INTO burger_ingredients (burgerID, ingredientID)
+SELECT 2, ingredientID FROM ingredients WHERE name IN ('Burgerbrød','Burgerkjøtt','Salat','Tomat','Ost','Potet');
 
 INSERT INTO orders (userID, burgerID, produced) VALUES
 (1, 1, 1),
